@@ -15,30 +15,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.srg.mc.domain.enums.TipoCliente;
 
 @Entity
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
-	private String cpfOuCnpf;
+	private String cpfOuCnpj;
 	private Integer tipo;
-	
+
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cidade")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
-	public Cliente () {
-		
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+
+	public Cliente() {
+
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpf, TipoCliente tipo) {
@@ -46,7 +51,7 @@ public class Cliente implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.cpfOuCnpf = cpfOuCnpf;
+		this.cpfOuCnpj = cpfOuCnpf;
 		this.tipo = tipo.getCod();
 	}
 
@@ -75,11 +80,11 @@ public class Cliente implements Serializable{
 	}
 
 	public String getCpfOuCnpf() {
-		return cpfOuCnpf;
+		return cpfOuCnpj;
 	}
 
 	public void setCpfOuCnpf(String cpfOuCnpf) {
-		this.cpfOuCnpf = cpfOuCnpf;
+		this.cpfOuCnpj = cpfOuCnpf;
 	}
 
 	public TipoCliente getTipo() {
@@ -88,6 +93,14 @@ public class Cliente implements Serializable{
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public List<Endereco> getEnderecos() {
@@ -122,8 +135,5 @@ public class Cliente implements Serializable{
 		Cliente other = (Cliente) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
+
 }
