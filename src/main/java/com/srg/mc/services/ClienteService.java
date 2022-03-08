@@ -16,7 +16,6 @@ import com.srg.mc.domain.Endereco;
 import com.srg.mc.domain.enums.TipoCliente;
 import com.srg.mc.dto.ClienteDTO;
 import com.srg.mc.dto.ClienteNewDTO;
-import com.srg.mc.repositories.CidadeRepository;
 import com.srg.mc.repositories.ClienteRepository;
 import com.srg.mc.repositories.EnderecoRepository;
 import com.srg.mc.services.excepctions.DataIntegrityException;
