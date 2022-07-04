@@ -143,10 +143,10 @@ public class Pedido implements Serializable{
 		builder.append(", Instante pedido: ");
 		builder.append(sdf.format(getInstante()));
 		builder.append(", Cliente: ");
-		builder.append(getCliente());
+		builder.append(getCliente().getNome());
 		builder.append(", Situação do pagamento: ");
 		builder.append(getPagamento().getEstado().getDescricao());
-		builder.append("\nDetalahes:\n");
+		builder.append("\nDetalhes:\n");
 		for(ItemPedido ip : getItens()) {
 			builder.append(ip.toString());
 		}
